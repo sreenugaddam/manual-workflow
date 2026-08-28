@@ -1,20 +1,26 @@
-name: manual-workflow
-on:
- workflow_dispatch
-    inputs:
-      environmnet:
-         description: Environment
-         required: false
-         default: dev
-      version:
-         description: Version
-         required: true
-jobs:
-  run:
-    run-on: ubuntu-latest
-    steps:
-       -name: print inputs
-        run: |
-          echo: "Environment: ${{ inputs.environmnet }}"
-          echo: "Version: ${{ inputs.version }}"       
+name: Manual Workflow
 
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: false
+        default: 'dev'
+        type: string
+      version:
+        description: 'Version'
+        required: true
+        type: string
+
+jobs:
+  manual-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Print inputs
+        run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
